@@ -1,7 +1,9 @@
+// @flow
+
 import React from 'react';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -9,7 +11,7 @@ styles = StyleSheet.create({
   }
 });
 
-function Index() {
+function Index(): React$Element<typeof SafeAreaView> {
 
   return (
     <SafeAreaView style={styles.container}>
