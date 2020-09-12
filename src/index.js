@@ -5,8 +5,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
-import { store } from './store';
+import { store, persistor } from './store';
 
 /** screens */
 import Login from './screens/login';
@@ -20,12 +21,14 @@ function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <ScreensStack.Navigator headerMode="none">
-          <ScreensStack.Screen name="Login" component={Login} />
-          <ScreensStack.Screen name="Home" component={Home} />
-        </ScreensStack.Navigator>
-      </NavigationContainer>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer>
+          <ScreensStack.Navigator headerMode="none">
+            <ScreensStack.Screen name="Login" component={Login} />
+            <ScreensStack.Screen name="Home" component={Home} />
+          </ScreensStack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }

@@ -2,7 +2,6 @@
 
 import { type TSendLoginResponse } from '../../api/login';
 import {type TLoginActions, type TLoginError } from '../actions/login';
-import { act } from 'react-test-renderer';
 
 export type TLoginStore = {
   jwt: $PropertyType<TSendLoginResponse,'jwt'> | null,
@@ -18,7 +17,7 @@ export const loginInitialState = {
   error: null
 };
 
-export const loginReducer = (
+const _loginReducer = (
   state: TLoginStore = loginInitialState,
   action: TLoginActions
 ) => {
@@ -49,3 +48,16 @@ export const loginReducer = (
       }
   }
 }
+
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
+
+const loginPersistConfig = {
+  key: 'login',
+  storage: AsyncStorage,
+  whitelist: [ 'jwt' ]
+};
+
+export const loginReducer = persistReducer<TLoginStore, any>(
+  loginPersistConfig, _loginReducer
+);
