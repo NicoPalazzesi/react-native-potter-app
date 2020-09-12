@@ -1,12 +1,13 @@
 // @flow
 
-import { DrawerActions } from '@react-navigation/native';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
+
 
 let navigation: any | null = null;
 
 export default {
-  init(_navigation: any): void {  
-    navigation = _navigation;
+  init(): void {  
+    navigation = useNavigation();
   },
 
   pop(): void {
@@ -21,7 +22,7 @@ export default {
     }
   },
 
-  navigate(): void {
+  navigate(screen: string): void {
     if(navigation){
       navigation.navigate(screen);
     }
