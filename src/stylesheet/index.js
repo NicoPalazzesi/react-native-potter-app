@@ -3,12 +3,14 @@
 import { StyleSheet } from 'react-native';
 
 const whiteColor = '#fff';
-const grayColor = '#282C34';
+const grayColor = '#939393';
 const blackColor = '#000';
 const redColor = '#e46f66';
 const greenColor = '#3cc7a4';
 const blueColor = '#002366';
 const yellowColor = '#ffcc00';
+const goldDarkColor = '#e6c00e';
+const brownColor = '#6e573d';
 const preloaderBgColor = 'rgba(0,0,0,0.5)';
 const fontSizeTiny = 9;
 const fontSizeSmall = 11;
@@ -31,6 +33,8 @@ export default {
   greenColor,
   blueColor,
   yellowColor,
+  goldDarkColor,
+  brownColor,
   preloaderBgColor,
   fontSizeTiny,
   fontSizeSmall,

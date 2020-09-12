@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import Navigation from '../../navigation';
+import StatusBar from '../../components/status.bar';
 import Form from './form';
 
 const IMAGE = require('../../assets/hogwarts-logo.png');
@@ -20,6 +21,7 @@ function Index(): React$Element<typeof SafeAreaView> {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar />
       <View style={styles.contentContainer}>
         <Image source={IMAGE} style={styles.image} />
         <KeyboardAvoidingView behavior="padding">
