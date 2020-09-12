@@ -11,7 +11,7 @@ const blueColor = '#002366';
 const yellowColor = '#ffcc00';
 const goldDarkColor = '#e6c00e';
 const brownColor = '#6e573d';
-const preloaderBgColor = 'rgba(0,0,0,0.5)';
+const loadingBgColor = 'rgba(0,0,0,0.5)';
 const fontSizeTiny = 9;
 const fontSizeSmall = 11;
 const fontSize = 14;
@@ -35,7 +35,7 @@ export default {
   yellowColor,
   goldDarkColor,
   brownColor,
-  preloaderBgColor,
+  loadingBgColor,
   fontSizeTiny,
   fontSizeSmall,
   fontSize,

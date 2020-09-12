@@ -1,22 +1,23 @@
 // @flow
 
-export type TLoginStore = {
-  start: boolean,
-  isLogged: boolean,
-  sendLoginSuccess: boolean,
-  sendLoginFailure: boolean
-};
+import { type TSendLoginResponse } from '../../api/login';
+import {type TLoginActions, type TLoginError } from '../actions/login';
 
-import {type TLoginActions } from '../actions/login';
+export type TLoginStore = {
+  jwt: $PropertyType<TSendLoginResponse,'jwt'> | null,
+  start: boolean,
+  loginState: string,
+  error: TLoginError | null
+};
 
 export const loginInitialState = {
+  jwt: null,
   start: false,
-  isLogged: false,
-  sendLoginSuccess: false,
-  sendLoginFailure: false
+  loginState: '',
+  error: null
 };
 
-export const loginReducer = (
+const _loginReducer = (
   state: TLoginStore = loginInitialState,
   action: TLoginActions
 ) => {
@@ -24,21 +25,22 @@ export const loginReducer = (
     case 'LOGIN/START':
       return {
         ...state,
-        start: true,
-        sendLoginSuccess: false,
-        sendLoginFailure: false
+        loginState: 'START',
+        error: null
       }
     case 'LOGIN/LOGIN_SUCCESS':
+      const { jwt } = action.payload;
       return {
         ...state,
-        start: false,
-        isLogged: true
+        loginState: 'LOGIN_SUCCESS',
+        jwt
       }
     case 'LOGIN/LOGIN_FAILURE':
+      const { error } = action.payload;
       return {
         ...state,
-        start: false,
-        sendLoginFailure: true
+        loginState: 'LOGIN_FAILURE',
+        error
       }
     default:
       return {
@@ -46,3 +48,16 @@ export const loginReducer = (
       }
   }
 }
+
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
+
+const loginPersistConfig = {
+  key: 'login',
+  storage: AsyncStorage,
+  whitelist: [ 'jwt' ]
+};
+
+export const loginReducer = persistReducer<TLoginStore, any>(
+  loginPersistConfig, _loginReducer
+);

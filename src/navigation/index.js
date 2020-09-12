@@ -1,7 +1,7 @@
 // @flow
 
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-
+import { type TScreens } from '../../src';
 
 let navigation: any | null = null;
 
@@ -16,19 +16,19 @@ export default {
     }
   },
 
-  push(screen: string, params?: any): void {
+  push(screen: TScreens, params?: any): void {
     if(navigation){
-      navigation.push(screen,params);
+      navigation.push(screen, params);
     }
   },
 
-  navigate(screen: string): void {
+  navigate(screen: TScreens): void {
     if(navigation){
       navigation.navigate(screen);
     }
   },
 
-  replace(screen: string, params?: any): void {
+  replace(screen: TScreens, params?: any): void {
     if(navigation){
       navigation.replace(screen, params);
     }
