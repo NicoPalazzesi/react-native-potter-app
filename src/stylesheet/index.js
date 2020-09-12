@@ -22,6 +22,13 @@ const classes = StyleSheet.create({
   input:{
     height: 50,
     marginBottom: 5,
+  },
+  container: {
+    flex: 1
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 18
   }
 });
 

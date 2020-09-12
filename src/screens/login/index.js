@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import Navigation from '../../navigation';
+import Style from '../../stylesheet'
 import Loading from '../../components/loading';
 import StatusBar from '../../components/status.bar';
 import Alert from './alert';
@@ -60,9 +61,9 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
   }, [props.login]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={Style.classes.container}>
       <StatusBar />
-      <View style={styles.contentContainer}>
+      <View style={Style.classes.contentContainer}>
         <Image source={IMAGE} style={styles.image} />
         <KeyboardAvoidingView behavior="padding">
           <Form />
@@ -74,13 +75,6 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  contentContainer: {
-    flex: 1,
-    paddingHorizontal: 18
-  },
   image: {
     width: '100%',
     height: '30%',
