@@ -1,23 +1,63 @@
 // @flow
 
 import React from 'react';
-import { SafeAreaView, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+import Style from '../../stylesheet';
+import Navigation from '../../navigation';
+import Alert from './alert';
+import StatusBar from '../../components/status.bar';
+import Button from '../../components/button';
+
+import { type TLoginDispatchers } from '../../store/actions/login';
+
+type Props = {
+  logout: $PropertyType<TLoginDispatchers, 'logout'>
+}
+
+function Index(props: Props): React$Element<typeof SafeAreaView> {
+
+  const logout = (): void => {
+    Alert.confirmLogout( onConfirmLogout );
   }
-});
 
-function Index(): React$Element<typeof SafeAreaView> {
+  const onConfirmLogout = (): void => {
+    props.logout();
+    Navigation.replace('Login');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>React Native Potter App</Text>
+      <StatusBar />
+      <View style={[Style.classes.contentContainer, styles.contentContainer]}>
+        <Text>React Native Potter App</Text>
+      </View>
+      <Button text="Cerrar sesión" onPress={logout} style={styles.button} />
     </SafeAreaView>
   );
 }
 
-export default Index;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  contentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  button: {
+    marginHorizontal: 18,
+    marginVertical: 5
+  }
+});
+
+
+import { bindActionCreators, Dispatch } from 'redux';
+import { connect } from 'react-redux';
+
+import logout from '../../store/actions/login';
+
+export const mapDispatchToProps = (dispatch: typeof Dispatch) => 
+  bindActionCreators(logout, dispatch);
+
+export default connect(null, mapDispatchToProps)(Index);

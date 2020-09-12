@@ -6,14 +6,14 @@ import {type TLoginActions, type TLoginError } from '../actions/login';
 export type TLoginStore = {
   jwt: $PropertyType<TSendLoginResponse,'jwt'> | null,
   start: boolean,
-  loginState: string,
+  loginState: string | null,
   error: TLoginError | null
 };
 
 export const loginInitialState = {
   jwt: null,
   start: false,
-  loginState: '',
+  loginState: null,
   error: null
 };
 
@@ -41,6 +41,12 @@ const _loginReducer = (
         ...state,
         loginState: 'LOGIN_FAILURE',
         error
+      }
+    case 'LOGIN/LOGOUT':
+      return {
+        ...state,
+        loginState: null,
+        jwt: null
       }
     default:
       return {

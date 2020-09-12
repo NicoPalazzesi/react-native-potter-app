@@ -7,7 +7,8 @@ import
 from '../../api/login';
 
 export type TLoginDispatchers = {
-  sendLogin: (loginData: TLoginData) => void
+  sendLogin: (loginData: TLoginData) => void,
+  logout: () => void
 }
 
 export type TLoginActions = 
@@ -20,6 +21,7 @@ export type TLoginActions =
       type: 'LOGIN/LOGIN_FAILURE',
       payload: { error: TLoginError }
     }
+  | { type: 'LOGIN/LOGOUT' }
 
 export type TLoginError = 1 | 2
 
@@ -57,6 +59,12 @@ export default {
           payload: { error: loginError.NETWORK }
         });
       }
+    }
+  },
+
+  logout(){
+    return async function(dispatch: typeof Dispatch) {
+      dispatch({ type: 'LOGIN/LOGOUT' });
     }
   }
 }
