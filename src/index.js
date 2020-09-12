@@ -12,6 +12,8 @@ import { store } from './store';
 import Login from './screens/login';
 import Home from './screens/home';
 
+export type TScreens = "Login" | "Home";
+
 function App() {
 
   const ScreensStack = createStackNavigator();
