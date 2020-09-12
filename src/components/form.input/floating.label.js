@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 1,
-    color: Style.blueColor,
+    color: Style.brownColor,
     fontSize: Style.fontSizeSmall,
   },
 });

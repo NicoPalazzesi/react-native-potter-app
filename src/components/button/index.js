@@ -28,7 +28,7 @@ function Button(props: Props){
 const styles = StyleSheet.create({
   container:{
     paddingVertical: 12,
-    backgroundColor: Style.blueColor,
+    backgroundColor: Style.goldDarkColor,
     justifyContent: 'center',
     alignItems: 'center'
   },

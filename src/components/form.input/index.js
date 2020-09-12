@@ -215,7 +215,7 @@ export default class FormInput extends PureComponent<Props, State> {
       <Icon
         name={isSecureTextEntry ? "eye-off" : "eye"}
         size={20}
-        color={isSecureTextEntry ? Style.grayColor : Style.blueColor}
+        color={isSecureTextEntry ? Style.grayColor : Style.brownColor}
       />
     </TouchableOpacity>
     }
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Style.grayColor,
   },
   activeHr: {
-    borderBottomColor: Style.blueColor,
+    borderBottomColor: Style.brownColor,
   },
   eyeContainer: {
     backgroundColor: 'transparent',
