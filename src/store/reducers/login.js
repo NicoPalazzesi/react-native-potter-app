@@ -1,19 +1,21 @@
 // @flow
 
+import { type TSendLoginResponse } from '../../api/login';
+import {type TLoginActions, type TLoginError } from '../actions/login';
+import { act } from 'react-test-renderer';
+
 export type TLoginStore = {
+  jwt: $PropertyType<TSendLoginResponse,'jwt'> | null,
   start: boolean,
-  isLogged: boolean,
-  sendLoginSuccess: boolean,
-  sendLoginFailure: boolean
+  loginState: string,
+  error: TLoginError | null
 };
 
-import {type TLoginActions } from '../actions/login';
-
 export const loginInitialState = {
+  jwt: null,
   start: false,
-  isLogged: false,
-  sendLoginSuccess: false,
-  sendLoginFailure: false
+  loginState: '',
+  error: null
 };
 
 export const loginReducer = (
@@ -24,21 +26,22 @@ export const loginReducer = (
     case 'LOGIN/START':
       return {
         ...state,
-        start: true,
-        sendLoginSuccess: false,
-        sendLoginFailure: false
+        loginState: 'START',
+        error: null
       }
     case 'LOGIN/LOGIN_SUCCESS':
+      const { jwt } = action.payload;
       return {
         ...state,
-        start: false,
-        isLogged: true
+        loginState: 'LOGIN_SUCCESS',
+        jwt
       }
     case 'LOGIN/LOGIN_FAILURE':
+      const { error } = action.payload;
       return {
         ...state,
-        start: false,
-        sendLoginFailure: true
+        loginState: 'LOGIN_FAILURE',
+        error
       }
     default:
       return {

@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { View, Keyboard, StyleSheet } from 'react-native';
 
+import Config from 'react-native-config';
+
 import Style from '../../stylesheet';
 import FormInput from '../../components/form.input';
 import Button from '../../components/button';
@@ -10,10 +12,20 @@ import stylesheet from '../../stylesheet';
 import Navigation from '../../navigation';
 import { validLoginInputData } from './validation';
 
-function Form(): React$Element<typeof View> {
+import { type TLoginDispatchers } from '../../store/actions/login';
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+type Props = {
+  sendLogin: $PropertyType<TLoginDispatchers, 'sendLogin'>
+}
+
+function Form(props: Props): React$Element<typeof View> {
+
+  const [username, setUsername] = useState(
+    process.env.NODE_ENV === 'production' ? '' : Config.USERNAME_DEV
+  );
+  const [password, setPassword] = useState(
+    process.env.NODE_ENV === 'production' ? '' : Config.PASSWORD_DEV
+  );
 
   const fields: {
     username: FormInput | null,
@@ -41,8 +53,7 @@ function Form(): React$Element<typeof View> {
     Keyboard.dismiss();
 
     if(validLoginInputData({ username, password })){
-      console.log('entra');
-      Navigation.replace("Home");
+      props.sendLogin({ username, password });
     }
   }
 
@@ -88,4 +99,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Form;
+import { bindActionCreators, Dispatch } from 'redux';
+import { connect } from 'react-redux';
+
+import sendLogin from '../../store/actions/login';
+
+export const mapDispatchToProps = (dispatch: typeof Dispatch) => 
+  bindActionCreators(sendLogin, dispatch);
+
+export default connect(null, mapDispatchToProps)(Form);
