@@ -11,6 +11,14 @@ const blueColor = '#002366';
 const yellowColor = '#ffcc00';
 const goldDarkColor = '#e6c00e';
 const brownColor = '#6e573d';
+const gryffindorRedColor = '#7f0909';
+const gryffindorYellowColor = '#ffc500';
+const slytherinGreenColor = '#0d6217';
+const slytherinGrayColor = '#aaaaaa';
+const ravenclawBlueColor = '#000a90';
+const ravenclawYellowColor = '#946b2d';
+const hafflepuffBlackColor = '#000000';
+const hafflepuffYellowColor = '#eee117';
 const loadingBgColor = 'rgba(0,0,0,0.5)';
 const fontSizeTiny = 9;
 const fontSizeSmall = 11;
@@ -42,6 +50,14 @@ export default {
   yellowColor,
   goldDarkColor,
   brownColor,
+  gryffindorRedColor,
+  gryffindorYellowColor,
+  slytherinGreenColor,
+  slytherinGrayColor,
+  ravenclawBlueColor,
+  ravenclawYellowColor,
+  hafflepuffBlackColor,
+  hafflepuffYellowColor,
   loadingBgColor,
   fontSizeTiny,
   fontSizeSmall,

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import Navigation from '../../navigation';
-import Style from '../../stylesheet'
+import Style from '../../stylesheet';
 import Loading from '../../components/loading';
 import StatusBar from '../../components/status.bar';
 import Alert from './alert';
@@ -41,11 +41,9 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
   useEffect(() => {
     switch (props.login?.loginState) {
       case 'START':
-        console.log('Start from component Login');
         setLoading(true);
         break;
       case 'LOGIN_SUCCESS':
-        console.log('Success from component Login');
         setLoading(false);
         Navigation.replace('Home');
         break;
@@ -59,7 +57,6 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
     }
 
   }, [props.login]);
-
   return (
     <SafeAreaView style={Style.classes.container}>
       <StatusBar />
@@ -85,7 +82,6 @@ const styles = StyleSheet.create({
 
 import { connect } from 'react-redux';
 
-import sendLogin from '../../store/actions/login';
 import { type TStore } from '../../store';
 
 export const mapStateToProps = (login: TStore) => {

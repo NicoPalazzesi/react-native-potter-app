@@ -7,13 +7,31 @@ import Style from '../../stylesheet';
 
 type Props = {
   text: string,
+  textColor?: string,
   onPress: () => void,
-  style?: Object
+  style?: Object,
+  backgroundColor?: string
 };
 
 function Button(props: Props){
-  const { text, onPress, style } = props;
+  const { text, textColor, onPress, style, backgroundColor } = props;
   
+  const styles = StyleSheet.create({
+    container:{
+      paddingVertical: 12,
+      backgroundColor: backgroundColor ? backgroundColor : Style.goldDarkColor,
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: Style.blackColor,
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+      elevation: 5
+    },
+    text:{
+      color: textColor ? textColor : Style.whiteColor
+    }
+  });
+
   return(
     <TouchableOpacity 
       style={[styles.container, style]}
@@ -24,17 +42,5 @@ function Button(props: Props){
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  container:{
-    paddingVertical: 12,
-    backgroundColor: Style.goldDarkColor,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  text:{
-    color: Style.whiteColor
-  }
-});
 
 export default Button;
