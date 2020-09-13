@@ -6,9 +6,11 @@ import ReduxThunk from 'redux-thunk';
 import { persistStore } from 'redux-persist';
 
 import {type TLoginStore} from './reducers/login';
+import {type THousesStore} from './reducers/houses';
 
 export type TStore = {
-  login: TLoginStore
+  login: TLoginStore,
+  houses: THousesStore
 };
 
 const store = createStore(Reducers, applyMiddleware(ReduxThunk));

@@ -12,8 +12,10 @@ import { store, persistor } from './store';
 /** screens */
 import Login from './screens/login';
 import Home from './screens/home';
+import Houses from './screens/houses';
+import House from './screens/house';
 
-export type TScreens = "Login" | "Home";
+export type TScreens = "Login" | "Home" | "Houses" | "House";
 
 function App() {
 
@@ -26,6 +28,8 @@ function App() {
           <ScreensStack.Navigator headerMode="none">
             <ScreensStack.Screen name="Login" component={Login} />
             <ScreensStack.Screen name="Home" component={Home} />
+            <ScreensStack.Screen name="Houses" component={Houses} />
+            <ScreensStack.Screen name="House" component={House} />
           </ScreensStack.Navigator>
         </NavigationContainer>
       </PersistGate>

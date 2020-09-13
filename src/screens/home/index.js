@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, View, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
 import Navigation from '../../navigation';
 import Alert from './alert';
 import StatusBar from '../../components/status.bar';
+import Options from './options';
 import Button from '../../components/button';
 
 import { type TLoginDispatchers } from '../../store/actions/login';
@@ -30,7 +31,7 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <View style={[Style.classes.contentContainer, styles.contentContainer]}>
-        <Text>React Native Potter App</Text>
+        <Options />
       </View>
       <Button text="Cerrar sesión" onPress={logout} style={styles.button} />
     </SafeAreaView>
@@ -42,8 +43,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'
   },
   button: {
     marginHorizontal: 18,

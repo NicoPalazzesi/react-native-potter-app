@@ -3,12 +3,15 @@
 import { combineReducers } from 'redux';
 
 import {loginReducer, loginInitialState} from './login';
+import {housesReducer, housesInitialState} from './houses';
 
 export default combineReducers(
   { 
-    login: loginReducer
+    login: loginReducer,
+    houses: housesReducer
   }, 
   { 
-    loginReducer: loginInitialState
+    loginReducer: loginInitialState,
+    housesReducer: housesInitialState
   }
 )
