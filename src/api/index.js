@@ -6,155 +6,165 @@ const WS_TIMEOUT = 30000;
 
 const error = TypeError('Timeout');
 
+export type TPayload = Object;
+
 const host = Config.POTTER_API_HOST;
 const apiKey = Config.POTTER_API_KEY;
 
-export const WSErrors = {
-  BAD_REQUEST: 400,
-  UNPROCESSABLE_ENTITY: 422,
-  INTERNAL_ERROR: 500
-};
-
-function buildUrl(...segments: Array<string>) {
-  return `${host}/${segments.join('/')}?key=${apiKey}`;
+export interface IAPI {
+  buildUrl(...segments: Array<string>): string;
+  buildPayload(
+    method: 'GET' | 'HEAD' | 'PUT' | 'PATCH' | 'POST' | 'DELETE',
+    token?: string,
+    data?: Object, 
+    isFormData?: bool
+  ): TPayload;
+  getPayload(Object): TPayload;
+  get(url: string, token?: string): Promise<any>;
+  post(url: string, data: Object, token?: string): Promise<any>;
+  put(url: string, token?: string, data?: Object): Promise<any>;
+  fetch(url: string, payloadBody?: Object): Promise<any>;
+  delete(url: string, token?: string, data?: Object): Promise<any>;
 }
 
-function buildPayload(
-  method: 'GET' | 'HEAD' | 'PUT' | 'PATCH' | 'POST' | 'DELETE',
-  token?: string,
-  data?: Object
-){
-  return {
-    method,
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token ? token : ''}`,
-    },
-    body: typeof data !== 'undefined' ? JSON.stringify(data) : undefined,
-  };
-}
+export default class API implements IAPI {
 
-function getPayload(payloadBody: Object) {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payloadBody),
-  };
-}
-
-async function get(url: string, token?: string) {
-  const payload = buildPayload('GET', token);
-  console.log(url, payload);
-  const response = await Promise.race([
-    fetch(url, payload),
-    new Promise (
-      (resolve,reject) => {
-        setTimeout(() => {
-          reject(error);
-        }, WS_TIMEOUT);
-      }
-    )
-  ]);
-  if(!response.ok) {
-    throw response;
+  buildUrl(...segments: Array<string>) {
+    return `${host}/${segments.join('/')}?key=${apiKey}`;
   }
-  const json = await response.json();
-  return json;
-}
-
-async function post(url: string, token?: string, data: Object) {
-  const payload = buildPayload('POST', token, data);
-  console.log(url, payload);
-  const response = await Promise.race([
-    fetch(url, payload),
-    new Promise (
-      (resolve,reject) => {
-        setTimeout(() => {
-          reject(error);
-        }, WS_TIMEOUT);
-      }
-    )
-  ]);
-  if(!response.ok) {
-    throw response;
+  
+  buildPayload(
+    method: 'GET' | 'HEAD' | 'PUT' | 'PATCH' | 'POST' | 'DELETE',
+    token?: string,
+    data?: Object, 
+    isFormData?: bool
+  ): TPayload {
+    return {
+      method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': isFormData ? 
+            'multipart/form-data'
+          :
+            'application/json',
+        'Authorization': token ? `Bearer ${token}` : null
+      },
+      body: data ? JSON.stringify(data) : undefined
+    };
   }
-  const json = await response.json();
-  return json;
-}
 
-async function put(url: string, token?: string, data?: Object) {
-  const payload = buildPayload('PUT', token, data);
-  console.log(url, payload);
-  const response = await Promise.race([
-    fetch(url, payload),
-    new Promise (
-      (resolve,reject) => {
-        setTimeout(() => {
-          reject(error);
-        }, WS_TIMEOUT);
-      }
-    )
-  ]);
-  if(!response.ok) {
-    throw response;
+  getPayload(payloadBody: Object): TPayload {
+    return {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payloadBody),
+    };
   }
-  const json = await response.json();
-  return json;
-}
 
-async function fetch(url: string, payloadBody?: Object): Promise<any> {
-  const payload = (
-    typeof payloadBody !== 'undefined' ?
-      getPayload(payloadBody)
-    :
-      undefined
-  );
-  console.log(url, payload);
-  const response = await Promise.race([
-    fetch(url, payload),
-    new Promise (
-      (resolve,reject) => {
-        setTimeout(() => {
-          reject(error);
-        }, 30000);
-      }
-    )
-  ]);
-  if(!response.ok) {
-    throw response;
+  async get(url: string, token?: string) {
+    const payload = token ? this.buildPayload('GET', token) : this.buildPayload('GET');
+    console.log(url, payload);
+    const response = await Promise.race([
+      fetch(url, payload),
+      new Promise (
+        (resolve,reject) => {
+          setTimeout(() => {
+            reject(error);
+          }, WS_TIMEOUT);
+        }
+      )
+    ]);
+    if(!response.ok) {
+      throw response;
+    }
+    const json = await response.json();
+    return json;
   }
-  const json = await response.json();
-  return json;
-}
 
-async function remove(url: string, token?: string, data?: Object) {
-  const payload = buildPayload('DELETE', token, data);
-  console.log(url, payload);
-  const response = await Promise.race([
-    fetch(url, payload),
-    new Promise (
-      (resolve,reject) => {
-        setTimeout(() => {
-          reject(error);
-        }, WS_TIMEOUT);
-      }
-    )
-  ]);
-  if(!response.ok) {
-    throw response;
+  async post(url: string, token?: string, data: Object) {
+    const payload = this.buildPayload('POST', token, data);
+    console.log(url, payload);
+    const response = await Promise.race([
+      fetch(url, payload),
+      new Promise (
+        (resolve,reject) => {
+          setTimeout(() => {
+            reject(error);
+          }, WS_TIMEOUT);
+        }
+      )
+    ]);
+    if(!response.ok) {
+      throw response;
+    }
+    const json = await response.json();
+    return json;
   }
-  const json = await response.json();
-  return json;
-}
 
-export default {
-  buildUrl,
-  get,
-  post,
-  put,
-  fetch,
-  remove
-};
+  async put(url: string, token?: string, data?: Object) {
+    const payload = this.buildPayload('PUT', token, data);
+    console.log(url, payload);
+    const response = await Promise.race([
+      fetch(url, payload),
+      new Promise (
+        (resolve,reject) => {
+          setTimeout(() => {
+            reject(error);
+          }, WS_TIMEOUT);
+        }
+      )
+    ]);
+    if(!response.ok) {
+      throw response;
+    }
+    const json = await response.json();
+    return json;
+  }
+
+  async fetch(url: string, payloadBody?: Object): Promise<any> {
+    const payload = (
+      typeof payloadBody !== 'undefined' ?
+        this.getPayload(payloadBody)
+      :
+        undefined
+    );
+    console.log(url, payload);
+    const response = await Promise.race([
+      fetch(url, payload),
+      new Promise (
+        (resolve,reject) => {
+          setTimeout(() => {
+            reject(error);
+          }, 30000);
+        }
+      )
+    ]);
+    if(!response.ok) {
+      throw response;
+    }
+    const json = await response.json();
+    return json;
+  }
+
+  async delete(url: string, token?: string, data?: Object) {
+    const payload = this.buildPayload('DELETE', token, data);
+    console.log(url, payload);
+    const response = await Promise.race([
+      fetch(url, payload),
+      new Promise (
+        (resolve,reject) => {
+          setTimeout(() => {
+            reject(error);
+          }, WS_TIMEOUT);
+        }
+      )
+    ]);
+    if(!response.ok) {
+      throw response;
+    }
+    const json = await response.json();
+    return json;
+  }
+}
