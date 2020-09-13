@@ -16,7 +16,7 @@ function InfoValues(props: Props): React$Element<typeof View>{
 
   const renderValue = (value: string): React$Element<typeof Text> => {
     return (
-      <Text>{value}</Text>
+      <Text key={value}>{value}</Text>
     );
   }
 
