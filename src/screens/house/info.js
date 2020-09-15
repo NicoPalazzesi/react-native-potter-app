@@ -32,12 +32,12 @@ function Info(props: Props): React$Element<typeof View> | null{
         <InfoLine title="Nombre" value={houseInfo.name} />
         <InfoLine title="Mascota" value={houseInfo.mascot} />
       </View>
-      <View style={styles.line} />
+      <View style={[Style.classes.line, styles.line]} />
       <InfoLine title="Fundador" value={houseInfo.founder} />
-      <View style={styles.line} />
+      <View style={[Style.classes.line, styles.line]} />
       <InfoLine title="Director/a de la casa" value={houseInfo.headOfHouse} />
       <InfoLine title="Fantasma de la casa" value={houseInfo.houseGhost} />
-      <View style={styles.line} />
+      <View style={[Style.classes.line, styles.line]} />
       <InfoValues values={houseInfo.values} />
     </View>
   );
@@ -45,8 +45,6 @@ function Info(props: Props): React$Element<typeof View> | null{
 
 const styles = StyleSheet.create({
   line: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: Style.grayColor,
     marginVertical: 8
   }
 });

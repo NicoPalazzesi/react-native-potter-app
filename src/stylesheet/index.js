@@ -37,6 +37,10 @@ const classes = StyleSheet.create({
   contentContainer: {
     flex: 1,
     paddingHorizontal: 18
+  },
+  line: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: grayColor
   }
 });
 
