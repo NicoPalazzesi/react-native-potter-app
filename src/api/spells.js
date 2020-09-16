@@ -2,6 +2,8 @@
 
 import Api from './index';
 
+import { type TBadApiKeyResponse } from './errors';
+
 const api = new Api();
 
 export type TSpell = {
@@ -17,8 +19,6 @@ export type TGetSpellsResponse = {
   success: boolean,
   spells?: TSpells
 } | null;
-
-export type TBadApiKeyResponse = { error: string };
 
 async function getSpells(): Promise<TGetSpellsResponse> {
   const url = api.buildUrl('spells');
