@@ -3,7 +3,7 @@
 import { Dispatch } from 'redux';
 import
   HouseApi,
-  { type THouseId, type TgetHouseRawResponse, type THouseInfo }
+  { type THouseId, type TGetHouseResponse, type THouse }
 from '../../api/houses';
 
 export type THousesDispatchers = {
@@ -14,7 +14,7 @@ export type THousesActions =
   | { type: 'HOUSES/START' }
   | {
       type: 'HOUSES/GET_HOUSE_SUCCESS',
-      payload: { houseInfo: THouseInfo }
+      payload: { houseInfo: THouse }
     }
   | { 
       type: 'HOUSES/GET_HOUSE_FAILURE',
@@ -33,7 +33,7 @@ export default {
     return async function(dispatch: typeof Dispatch) {
       // start
       dispatch({ type: 'HOUSES/START' });
-      const response: TgetHouseRawResponse = await HouseApi.getHouse(houseId);
+      const response: TGetHouseResponse = await HouseApi.getHouse(houseId);
       if(response){
         // success
         if(response.success){

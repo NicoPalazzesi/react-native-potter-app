@@ -2,6 +2,8 @@
 
 import Api from './index';
 
+import { type TBadApiKeyResponse, type TBadParamsResponse } from './errors';
+
 const api = new Api();
 
 export type THouseId = 
@@ -17,7 +19,7 @@ export const houseId = {
   HUFFLEPUFF: "5a05dc58d45bd0a11bd5e070"
 };
 
-export type THouseInfo = {
+export type THouse = {
   name: string,
   mascot: string,
   headOfHouse: string,
@@ -26,25 +28,19 @@ export type THouseInfo = {
   values: Array<string>
 }
 
+export type THouses = Array<THouse>
+
 export type TGetHouseResponse = {
   success: boolean,
-  houseInfo?: THouseInfo
-};
+  houseInfo?: THouse
+} | null;
 
-//bad house id
-type TGetHouseBadHouseIdResponse = { message: string };
-
-// bad api key
-type TGetHouseBadApiKeyResponse = { error: string };
-
-export type TgetHouseRawResponse = TGetHouseResponse | null;
-
-async function getHouse(houseId: THouseId): Promise<TgetHouseRawResponse>{
+async function getHouse(houseId: THouseId): Promise<TGetHouseResponse>{
   const url = api.buildUrl('houses', houseId);
   
   try{
-    const response = await api.get(url);
-    if(!response.message && !response.error){
+    const response: THouses | TBadParamsResponse | TBadApiKeyResponse = await api.get(url);
+    if(response.message === undefined && response.error === undefined){
       return {
         success: true,
         houseInfo: response[0]

@@ -5,10 +5,10 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
 
-import { type THouseInfo } from '../../api/houses';
+import { type THouse } from '../../api/houses';
 
 type Props = {
-  values: $PropertyType<THouseInfo,'values'>
+  values: $PropertyType<THouse,'values'>
 };
 
 function InfoValues(props: Props): React$Element<typeof View>{
