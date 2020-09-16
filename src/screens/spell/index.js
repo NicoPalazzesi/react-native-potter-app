@@ -4,6 +4,7 @@ import React from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
+import NavBar from '../../components/nav.bar';
 import Card from './card';
 import InfoLine from '../../components/info.line';
 
@@ -22,6 +23,7 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
 
   return (
     <SafeAreaView style={Style.classes.container}>
+      <NavBar title="Detalle" />
       <View style={[Style.classes.contentContainer, styles.container]}>
         <Card imageSource={SPELL_IMAGE}>
           <InfoLine 
