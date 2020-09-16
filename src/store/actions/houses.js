@@ -7,7 +7,8 @@ import
 from '../../api/houses';
 
 export type THousesDispatchers = {
-  getHouse: (houseId: THouseId) => void
+  getHouse: (houseId: THouseId) => void,
+  clear: () => void
 }
 
 export type THousesActions = 
@@ -20,6 +21,7 @@ export type THousesActions =
       type: 'HOUSES/GET_HOUSE_FAILURE',
       payload: { error: THousesError }
     }
+  | { type: 'HOUSES/CLEAR' }
 
 export type THousesError = 1 | 2
 
@@ -56,6 +58,12 @@ export default {
           payload: { error: housesError.NETWORK }
         });
       }
+    }
+  },
+
+  clear(){
+    return async function(dispatch: typeof Dispatch) {
+      dispatch({ type: 'HOUSES/CLEAR' });
     }
   }
 }

@@ -43,6 +43,10 @@ export const housesReducer = (
         housesState: 'GET_HOUSE_FAILURE',
         error
       }
+    case 'HOUSES/CLEAR':
+      return {
+        ...housesInitialState
+      }
     default:
       return {
         ...state
