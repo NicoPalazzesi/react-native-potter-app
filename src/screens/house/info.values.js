@@ -16,7 +16,7 @@ function InfoValues(props: Props): React$Element<typeof View>{
 
   const renderValue = (value: string): React$Element<typeof Text> => {
     return (
-      <Text key={value}>{value}</Text>
+      <Text key={value} style={styles.value}>{value}</Text>
     );
   }
 
@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
     marginVertical: 4
   },
   title: {
-    color: Style.grayColor,
+    color: Style.grayColor
+  },
+  value: {
     fontWeight: 'bold'
   }
 });
