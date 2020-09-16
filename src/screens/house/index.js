@@ -19,7 +19,8 @@ type TRoute = { params: { houseId: THouseId } };
 type Props = {
   route: TRoute,
   houses: THousesStore,
-  getHouse: $PropertyType<THousesDispatchers, 'getHouse'>
+  getHouse: $PropertyType<THousesDispatchers, 'getHouse'>,
+  clear: $PropertyType<THousesDispatchers, 'clear'>
 };
 
 function Index(props: Props): React$Element<typeof SafeAreaView> {
@@ -27,9 +28,10 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  // only runs on first render
-  useEffect((): void => {
-    props.getHouse(houseId);
+  useEffect((): () => void => {
+    props.getHouse(houseId); // mount
+
+    return () => props.clear(); // unmount
   }, []);
 
   // run every time specificated props changes
@@ -68,6 +70,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import getHouse from '../../store/actions/houses';
+import clear from '../../store/actions/houses';
 import { type TStore } from '../../store';
 
 export const mapStateToProps = (houses: TStore) => {
@@ -75,6 +78,9 @@ export const mapStateToProps = (houses: TStore) => {
 };
 
 export const mapDispatchToProps = (dispatch: typeof Dispatch) => 
-  bindActionCreators(getHouse, dispatch);
+bindActionCreators(
+  Object.assign({}, getHouse, clear),
+  dispatch
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

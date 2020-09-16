@@ -41,6 +41,10 @@ export const spellsReducer = (
         spellsState: 'GET_SPELLS_FAILURE',
         error
       }
+    case 'SPELLS/CLEAR':
+      return {
+        ...spellsInitialState
+      }
     default:
       return {
         ...state

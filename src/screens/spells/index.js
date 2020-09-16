@@ -14,16 +14,18 @@ import { type TSpellsStore } from '../../store/reducers/spells';
 
 type Props = {
   spells: TSpellsStore,
-  getSpells: $PropertyType<TSpellsDispatchers, 'getSpells'>
+  getSpells: $PropertyType<TSpellsDispatchers, 'getSpells'>,
+  clear: $PropertyType<TSpellsDispatchers, 'clear'>
 };
 
 function Index(props: Props): React$Element<typeof SafeAreaView> {
   
   const [loading, setLoading] = useState<boolean>(false);
 
-  // only runs on first render
-  useEffect((): void => {
-    props.getSpells();
+  useEffect((): () => void => {
+    props.getSpells(); // mount
+
+    return () => props.clear(); // unmount
   }, []);
 
   // run every time specificated props changes
@@ -43,7 +45,6 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
       default:
         break;
     }
-
   }, [props.spells]);
 
   return (
@@ -59,6 +60,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import getSpells from '../../store/actions/spells';
+import clear from '../../store/actions/spells';
 import { type TStore } from '../../store';
 
 export const mapStateToProps = (spells: TStore) => {
@@ -66,6 +68,9 @@ export const mapStateToProps = (spells: TStore) => {
 };
 
 export const mapDispatchToProps = (dispatch: typeof Dispatch) => 
-  bindActionCreators(getSpells, dispatch);
+  bindActionCreators(
+    Object.assign({}, getSpells, clear),
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

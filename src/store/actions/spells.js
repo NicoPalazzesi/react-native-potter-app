@@ -8,7 +8,8 @@ import
 from '../../api/spells';
 
 export type TSpellsDispatchers = {
-  getSpells: () => void
+  getSpells: () => void,
+  clear: () => void
 }
 
 export type TSpellsActions = 
@@ -21,6 +22,7 @@ export type TSpellsActions =
       type: 'SPELLS/GET_SPELLS_FAILURE',
       payload: { error: TSpellsError }
     }
+  | { type: 'SPELLS/CLEAR' }
 
 export type TSpellsError = 1
 
@@ -57,6 +59,12 @@ export default {
           payload: { error: spellsError.NETWORK }
         });
       }
+    }
+  },
+
+  clear(){
+    return async function(dispatch: typeof Dispatch) {
+      dispatch({ type: 'SPELLS/CLEAR' });
     }
   }
 }
