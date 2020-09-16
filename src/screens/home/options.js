@@ -13,19 +13,29 @@ function Options(): React$Element<typeof View> {
     Navigation.push('Houses');
   }
 
+  const goToSpells = (): void => {
+    Navigation.push('Spells');
+  }
+
   return (
     <View>
       <Button
         text="Casas de Hogwarts"
         textColor={Style.brownColor}
-        onPress={goToHouses} />
+        onPress={goToHouses} 
+        style={styles.button} />
+      <Button
+        text="Hechizos"
+        textColor={Style.brownColor}
+        onPress={goToSpells}
+        style={styles.button} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'yellow'
+    marginVertical: 10
   }
 });
 

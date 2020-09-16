@@ -1,13 +1,13 @@
 // @flow
 
-import { type THouseInfo } from '../../api/houses';
+import { type THouse } from '../../api/houses';
 import {type THousesActions, type THousesError } from '../actions/houses';
 
 export type THousesStore = {
   start: boolean,
   housesState: string | null,
   error: THousesError | null,
-  houseInfo: THouseInfo | null
+  houseInfo: THouse | null
 };
 
 export const housesInitialState = {
@@ -42,6 +42,10 @@ export const housesReducer = (
         ...state,
         housesState: 'GET_HOUSE_FAILURE',
         error
+      }
+    case 'HOUSES/CLEAR':
+      return {
+        ...housesInitialState
       }
     default:
       return {

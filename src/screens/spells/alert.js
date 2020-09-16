@@ -3,23 +3,23 @@
 import { Alert } from 'react-native';
 
 import DefaultAlert from '../../components/alert';
-import { housesError, type THousesError } from '../../store/actions/houses';
+import { spellsError, type TSpellsError } from '../../store/actions/spells';
 
 const title = "Error al cargar información";
 
-function housesFailure(error: THousesError): void {
+function spellsFailure(error: TSpellsError): void {
   switch (error) {
-    case housesError.INCORRECT_HOUSES_DATA:
-      incorrectHousesData();
+    case spellsError.BAD_SPELLS_RESPONSE:
+      badSpellsResponse();
       break;
-    case housesError.NETWORK:
+    case spellsError.NETWORK:
       DefaultAlert.networkError();
       break;
     default:
       break;
   };
 
-  function incorrectHousesData(): void {
+  function badSpellsResponse(): void {
     Alert.alert(
       title,
       'Se ha producido un error interno. Por favor, intente más tarde.',
@@ -29,5 +29,5 @@ function housesFailure(error: THousesError): void {
 }
 
 export default {
-  housesFailure
+  spellsFailure
 };

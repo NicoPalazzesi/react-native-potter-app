@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
+import NavBar from '../../components/nav.bar';
 import Loading from '../../components/loading';
 import Alert from './alert';
 import Logo from './logo';
@@ -18,7 +19,8 @@ type TRoute = { params: { houseId: THouseId } };
 type Props = {
   route: TRoute,
   houses: THousesStore,
-  getHouse: $PropertyType<THousesDispatchers, 'getHouse'>
+  getHouse: $PropertyType<THousesDispatchers, 'getHouse'>,
+  clear: $PropertyType<THousesDispatchers, 'clear'>
 };
 
 function Index(props: Props): React$Element<typeof SafeAreaView> {
@@ -26,9 +28,10 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  // only runs on first render
-  useEffect((): void => {
-    props.getHouse(houseId);
+  useEffect((): () => void => {
+    props.getHouse(houseId); // mount
+
+    return () => props.clear(); // unmount
   }, []);
 
   // run every time specificated props changes
@@ -53,6 +56,7 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
 
   return(
     <SafeAreaView style={Style.classes.container}>
+      <NavBar title="Detalles" />
       <View style={Style.classes.contentContainer}>
         <Logo houseId={houseId} />
         <Info />
@@ -66,6 +70,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import getHouse from '../../store/actions/houses';
+import clear from '../../store/actions/houses';
 import { type TStore } from '../../store';
 
 export const mapStateToProps = (houses: TStore) => {
@@ -73,6 +78,9 @@ export const mapStateToProps = (houses: TStore) => {
 };
 
 export const mapDispatchToProps = (dispatch: typeof Dispatch) => 
-  bindActionCreators(getHouse, dispatch);
+bindActionCreators(
+  Object.assign({}, getHouse, clear),
+  dispatch
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

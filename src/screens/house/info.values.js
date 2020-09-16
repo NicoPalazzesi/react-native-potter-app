@@ -5,10 +5,10 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
 
-import { type THouseInfo } from '../../api/houses';
+import { type THouse } from '../../api/houses';
 
 type Props = {
-  values: $PropertyType<THouseInfo,'values'>
+  values: $PropertyType<THouse,'values'>
 };
 
 function InfoValues(props: Props): React$Element<typeof View>{
@@ -16,7 +16,7 @@ function InfoValues(props: Props): React$Element<typeof View>{
 
   const renderValue = (value: string): React$Element<typeof Text> => {
     return (
-      <Text key={value}>{value}</Text>
+      <Text key={value} style={styles.value}>{value}</Text>
     );
   }
 
@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
     marginVertical: 4
   },
   title: {
-    color: Style.grayColor,
+    color: Style.grayColor
+  },
+  value: {
     fontWeight: 'bold'
   }
 });

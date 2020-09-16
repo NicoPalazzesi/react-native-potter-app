@@ -20,6 +20,8 @@ const ravenclawYellowColor = '#946b2d';
 const hafflepuffBlackColor = '#000000';
 const hafflepuffYellowColor = '#eee117';
 const loadingBgColor = 'rgba(0,0,0,0.5)';
+const goldDarkBgColor = 'rgba(255,215,0, 0.5)';
+const whiteBgColor = "#e8e8e8";
 const fontSizeTiny = 9;
 const fontSizeSmall = 11;
 const fontSize = 14;
@@ -32,11 +34,16 @@ const classes = StyleSheet.create({
     marginBottom: 5,
   },
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: whiteBgColor
   },
   contentContainer: {
     flex: 1,
     paddingHorizontal: 18
+  },
+  line: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: grayColor
   }
 });
 
@@ -59,6 +66,8 @@ export default {
   hafflepuffBlackColor,
   hafflepuffYellowColor,
   loadingBgColor,
+  goldDarkBgColor,
+  whiteBgColor,
   fontSizeTiny,
   fontSizeSmall,
   fontSize,
