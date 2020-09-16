@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
-import InfoLine from './info.line';
+import InfoLine from '../../components/info.line';
 import InfoValues from './info.values';
 
 import { type THousesStore } from '../../store/reducers/houses';
@@ -28,7 +28,7 @@ function Info(props: Props): React$Element<typeof View> | null{
 
   return (
     <View>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+      <View style={styles.twoColumnsContainer}>
         <InfoLine title="Nombre" value={houseInfo.name} />
         <InfoLine title="Mascota" value={houseInfo.mascot} />
       </View>
@@ -44,6 +44,10 @@ function Info(props: Props): React$Element<typeof View> | null{
 }
 
 const styles = StyleSheet.create({
+  twoColumnsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   line: {
     marginVertical: 8
   }
