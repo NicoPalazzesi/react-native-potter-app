@@ -7,6 +7,7 @@ import Style from '../../stylesheet';
 import Navigation from '../../navigation';
 import Alert from './alert';
 import StatusBar from '../../components/status.bar';
+import NavBar from '../../components/nav.bar';
 import Options from './options';
 import Button from '../../components/button';
 
@@ -30,6 +31,7 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
+      <NavBar title="¡Bienvenido!" />
       <View style={[Style.classes.contentContainer, styles.contentContainer]}>
         <Options />
       </View>

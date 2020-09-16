@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
 
 import Style from '../../stylesheet';
+import NavBar from '../../components/nav.bar';
 import Loading from '../../components/loading';
 import Alert from './alert';
 import Logo from './logo';
@@ -53,6 +54,7 @@ function Index(props: Props): React$Element<typeof SafeAreaView> {
 
   return(
     <SafeAreaView style={Style.classes.container}>
+      <NavBar title="Detalles" />
       <View style={Style.classes.contentContainer}>
         <Logo houseId={houseId} />
         <Info />
