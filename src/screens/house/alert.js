@@ -2,6 +2,7 @@
 
 import { Alert } from 'react-native';
 
+import DefaultAlert from '../../components/alert';
 import { housesError, type THousesError } from '../../store/actions/houses';
 
 const title = "Error al cargar información";
@@ -12,7 +13,7 @@ function housesFailure(error: THousesError): void {
       incorrectHousesData();
       break;
     case housesError.NETWORK:
-      newtworkError();
+      DefaultAlert.networkError();
       break;
     default:
       break;
@@ -25,15 +26,6 @@ function housesFailure(error: THousesError): void {
       [{ text: 'Aceptar' }]
     );
   };
-
-  function newtworkError(): void {
-    Alert.alert(
-      title,
-      'Se produjo un error de conexión. Por favor, intente más tarde.',
-      [{ text: 'Aceptar' }]
-    );
-  };
-
 }
 
 export default {
